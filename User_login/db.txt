@@ -1,0 +1,32 @@
+CREATE DATABASE user_db;
+
+
+CREATE TABLE countries (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE states (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    country_id INT REFERENCES countries(id)
+);
+
+CREATE TABLE cities (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    state_id INT REFERENCES states(id)
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(20),
+    country_id INT REFERENCES countries(id),
+    state_id INT REFERENCES states(id),
+    city_id INT REFERENCES cities(id)
+);
+
+
+pip install flask psycopg2 flask-sqlalchemy flask-wtf

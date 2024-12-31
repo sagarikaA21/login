@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+</head>
+<body>
+    <h1>Edit User</h1>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div>{{ form.name.label }} {{ form.name() }}</div>
+        <div>{{ form.email.label }} {{ form.email() }}</div>
+        <div>{{ form.phone.label }} {{ form.phone() }}</div>
+        <div>{{ form.country.label }} {{ form.country() }}</div>
+        <div>{{ form.state.label }} {{ form.state() }}</div>
+        <div>{{ form.city.label }} {{ form.city() }}</div>
+        <div><button type="submit">Save Changes</button></div>
+    </form>
+    <a href="{{ url_for('view_user') }}">Back to Users</a>
+</body>
+</html>

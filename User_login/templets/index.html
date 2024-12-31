@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register User</title>
+</head>
+<body>
+    <h1>Register User</h1>
+    <form method="POST" action="/">
+        {{ form.hidden_tag() }}
+        <div>{{ form.name.label }} {{ form.name() }}</div>
+        <div>{{ form.email.label }} {{ form.email() }}</div>
+        <div>{{ form.phone.label }} {{ form.phone() }}</div>
+        <div>{{ form.country.label }} {{ form.country() }}</div>
+        <div>{{ form.state.label }} {{ form.state() }}</div>
+        <div>{{ form.city.label }} {{ form.city() }}</div>
+        <div><button type="submit">Submit</button></div>
+    </form>
+
+    <script>
+        document.querySelector('select[name="country"]').addEventListener('change', function() {
+            fetch(`/get_states/${this.value}`)
+                .then(response => response.json())
+                .then(data => {
+                    let stateSelect = document.querySelector('select[name="state"]');
+                    stateSelect.innerHTML = '';
+                    data.states.forEach(state => {
+                        let option = document.createElement('option');
+                        option.value = state[0];
+                        option.text = state[1];
+                        stateSelect.appendChild(option);
+                    });
+                });
+        });
+
+        document.querySelector('select[name="state"]').addEventListener('change', function() {
+            fetch(`/get_cities/${this.value}`)
+                .then(response => response.json())
+                .then(data => {
+                    let citySelect = document.querySelector('select[name="city"]');
+                    citySelect.innerHTML = '';
+                    data.cities.forEach(city => {
+                        let option = document.createElement('option');
+                        option.value = city[0];
+                        option.text = city[1];
+                        citySelect.appendChild(option);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>
